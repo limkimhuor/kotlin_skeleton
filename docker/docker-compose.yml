@@ -1,0 +1,20 @@
+version: '2'
+services:
+  cache:
+    image: redis:alpine
+    container_name: kotlin_skeleton_cache
+    ports:
+      - 6379:6379
+    command: redis-server
+  db:
+    build: ./mariadb
+    container_name: kotlin_skeleton_db
+    volumes:
+      - data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3306:3306
+volumes:
+  data:
+    driver: local

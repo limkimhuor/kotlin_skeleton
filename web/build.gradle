@@ -1,0 +1,44 @@
+ext['thymeleaf.version'] = '3.0.5.RELEASE'
+ext['thymeleaf-layout-dialect.version'] = '2.2.1'
+
+apply plugin: 'war'
+
+dependencies {
+    compile project(':common')
+    compile 'org.springframework.boot:spring-boot-starter-aop'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compile 'org.springframework.boot:spring-boot-starter-cache'
+    compile 'org.springframework.session:spring-session-data-redis'
+    compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:$rootProject.properties.thymeleaf_springsecurity_version"
+    compile "org.thymeleaf.extras:thymeleaf-extras-java8time:$rootProject.properties.thymeleaf_java8time_version"
+    compile "org.mariadb.jdbc:mariadb-java-client:$rootProject.properties.mariadb_jdbc_version"
+//    compile "com.nimbusds:oauth2-oidc-sdk:$rootProject.properties.oauth2_oidc_version"
+
+    // webjars
+    compile "org.webjars:webjars-locator:$rootProject.properties.webjars_locator_version"
+    compile 'org.webjars.bower:jquery:3.2.1'
+    compile 'org.webjars.bower:knockout-validation:2.0.3'
+    compile 'org.webjars.bower:knockout-mapping:2.4.1'
+    compile 'org.webjars:jquery-ui:1.12.1'
+
+    // war 作成時に除外されるライブラリ
+//    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+}
+
+springBoot {
+    mainClass = "skeleton.web.WebApplication"
+}
+
+bootRun {
+    addResources = true
+}
+
+war {
+    classpath = configurations.runtime
+    webInf {
+        into('classes') {
+            from sourceSets.main.output
+        }
+    }
+}

@@ -1,0 +1,29 @@
+spring:
+  mvc.favicon.enabled: false
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  thymeleaf:
+    mode: HTML
+    cache: false
+  session.store-type: redis
+  redis:
+    host: localhost
+    port: 6379
+  datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mariadb://localhost:3306/kotlin_skeleton
+      username: root
+      password: password
+      testOnBorrow: true
+      validationQuery: "SELECT 1"
+  transaction:
+      default-timeout: 7200
+      rollback-on-commit-failure: true
+logging:
+  level:
+    org.mybatis: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.session: INFO
+    org.springframework.web.servlet: DEBUG
+  file: logs/web.log
